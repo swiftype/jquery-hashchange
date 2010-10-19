@@ -102,11 +102,12 @@
     doc_mode = doc.documentMode,
     supports_onhashchange = 'on' + str_hashchange in window && ( doc_mode === undefined || doc_mode > 7 );
   
-  // Get location.hash (or what you'd expect location.hash to be) sans any
-  // leading #. Thanks for making this necessary, Firefox!
+  // Get location.hash (or what you'd expect location.hash to be) with leading
+  // #. Thanks for making this necessary, Firefox!
   function get_fragment( url ) {
     url = url || location.href;
-    return '#' + url.replace( /^[^#]*#?(.*)$/, '$1' );
+    var index = url.indexOf( '#' );
+    return index === -1 ? '#' : url.substr( index );
   };
   
   // Method: jQuery.fn.hashchange
